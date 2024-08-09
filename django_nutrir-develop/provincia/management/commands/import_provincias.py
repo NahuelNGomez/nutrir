@@ -11,18 +11,14 @@ class Command(BaseCommand):
 
     def handle(self, *args, **kwargs):
         path = kwargs['path']
-        with open(path, 'rt') as f:
+        with open(path, 'rt', encoding='utf-8') as f:
             reader = csv.reader(f, delimiter=';')
             for row in reader:
-                #import pdb
-                #pdb.set_trace()
                 if row[4] == '':
                     row[4] = 0.0
 
-
                 Provincia.objects.create(
-                    #Identificacion
-                    nombre = row[0],
+                    # Identificacion
+                    nombre=row[0],
                     codigo_UTA=row[7],
-
                 )
