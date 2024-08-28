@@ -4,6 +4,8 @@ import { withSessionRoute } from '../../src/utils/withIronSession';
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
     const { email, password } = JSON.parse(req.body);
 
+    console.log('Request Body:', { email, password });
+
     if (email && password) {
         const response = await fetch(
             `${process.env.NEXT_PUBLIC_API_BASE_URL}user/sesion/login/`,
@@ -18,8 +20,11 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
         );
 
         const resParsed = await response.json();
+        console.log('Response:', resParsed);
+
         if (!resParsed.user) {
             res.status(401).json({ success: false });
+            return;
         }
 
         req.session.user = {

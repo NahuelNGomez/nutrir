@@ -8,20 +8,20 @@ from django_nutrir import settings
 
 class CustomLoginSerializer(LoginSerializer):
     username = None
-    email = None
-    cuil = serializers.CharField(max_length=40)
+    cuil = None
+    email = serializers.EmailField()
 
     class Meta:
-        model = UsuarioPersonalizado# get_user_model()
-        fields = ['cuil']
+        model = UsuarioPersonalizado
+        fields = ['email']
 
     @transaction.atomic
     def validate(self, attrs):
-        cuil = attrs.get("cuil")
+        email = attrs.get("email")
         password = attrs.get("password")
-        if cuil and password:
+        if email and password:
             user = authenticate(
-                cuil=cuil,
+                email=email,
                 password=password,
             )
             if not user:
