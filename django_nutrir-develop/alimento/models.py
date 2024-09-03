@@ -8,7 +8,10 @@ class Alimento(models.Model):
 
 	UNIDAD_CHOICES = [
 		("g", "g"),
-		("Kg", "Kg")
+		("Kg", "Kg"),
+		("Tazas", "Tazas"),
+		("Cucharadas", "Cucharadas"),
+		("Unidades", "Unidades")
 	]
 
 	nombre = models.CharField("Nombre", max_length=100, unique=True)
@@ -21,12 +24,6 @@ class Alimento(models.Model):
 	grasas_totales = models.DecimalField("Grasas Totales", null=False, blank=False, decimal_places=2, max_digits=16, help_text="En gramos")
 	energia = models.DecimalField("Kilocalorias", null=False, blank=False, decimal_places=2, max_digits=16)
 	sodio = models.DecimalField("Sodio", null=False, blank=False, decimal_places=2, max_digits=16, help_text="En gramos")
-
-	def save(self, *args, **kwargs):
-		if self.unidades == 'Kg':
-			self.cantidad_porcion = self.cantidad_porcion * 1000
-		
-		super().save(*args, **kwargs)
 
 	def __str__(self):
 		return f"{self.nombre}"
