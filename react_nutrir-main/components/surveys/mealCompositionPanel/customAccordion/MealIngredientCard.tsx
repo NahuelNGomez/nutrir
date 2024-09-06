@@ -165,6 +165,7 @@ const MealIngredientCard: FC<Props> = ({
                         value={quantityValue}
                         disabled={enableQuantity}
                         type='number'
+                        inputProps={{ min: 0 }}
                         InputLabelProps={{
                             shrink: true,
                         }}
