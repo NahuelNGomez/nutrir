@@ -131,6 +131,7 @@ const MealIngredientCard: FC<Props> = ({
                         />
                     </div>
                 </Grid>
+                
                 <Grid
                     item
                     xs={4}
@@ -192,6 +193,16 @@ const MealIngredientCard: FC<Props> = ({
                         onClick={(e) => ingredientHandleChange(e)}
                     />
                 </Grid>
+                {/*  LISTADO DE UNIDADES DE MEDIDA DISPONIBLES
+                <Grid item xs={4} sx={ingredientsPanel.compoundCard.primaryText}>
+                    <Typography>{ingredienteName}</Typography>
+                    {meal.alimento.map((alimento) => (
+                        <Typography key={alimento.id}>
+                            {alimento.unidades.join(', ')}
+                        </Typography>
+                    ))}
+                </Grid>
+                */}
             </Grid>
             {error && (
                 <Typography sx={ingredientsPanel.compoundCard.errorMsg}>

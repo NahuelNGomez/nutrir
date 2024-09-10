@@ -140,6 +140,7 @@ export type mealDataType = {
   nombre: string;
   foto: string;
   horario?: string;
+  unidades?: Array<string>;
   cantidad_porcion?: string | number;
   hidratos_carbono?: string | number;
   proteinas?: string | number;
@@ -152,6 +153,7 @@ export type foodDataType = {
   id: number;
   nombre: string;
   foto: string;
+  unidades: Array<string>;
   cantidad_porcion?: string | number;
   hidratos_carbono?: string | number;
   proteinas?: string | number;
