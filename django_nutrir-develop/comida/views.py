@@ -31,8 +31,8 @@ class ComidaAlimentoView(generics.ListAPIView):
 
         alimentos_extendidos = []
         for alimento in alimentos:
-            unidades = Unidad.objects.filter(alimento=alimento['id']).values('nombre')
-            unidades_nombres = [unidad['nombre'] for unidad in unidades]
+            unidades = Unidad.objects.filter(alimento=alimento['id']).values('id','nombre')
+            unidades_extendidas = [{'id': unidad['id'], 'nombre': unidad['nombre']} for unidad in unidades]
 
             alimento_extendido = {
                 'id': alimento['id'],
@@ -42,7 +42,7 @@ class ComidaAlimentoView(generics.ListAPIView):
                 'proteinas': alimento['proteinas'],
                 'grasas': alimento['grasas'],
                 'energia': alimento['energia'],
-                'unidades': unidades_nombres,
+                'unidades': unidades_extendidas,
                 'foto': 'http://'+host+'/media/' + alimento['foto'],
             }
 

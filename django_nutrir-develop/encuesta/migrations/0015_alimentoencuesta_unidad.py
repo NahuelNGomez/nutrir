@@ -15,6 +15,7 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='alimentoencuesta',
             name='unidad',
-            field=models.ForeignKey(default=None, on_delete=django.db.models.deletion.CASCADE, to='alimento.unidad'),
+            field=models.ForeignKey(default=1, on_delete=django.db.models.deletion.CASCADE, to='alimento.unidad'),
+            preserve_default=False,
         ),
     ]
