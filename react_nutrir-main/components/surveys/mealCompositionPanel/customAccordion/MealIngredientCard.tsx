@@ -1,5 +1,17 @@
 import { FC, useEffect, useState } from 'react';
-import { Card, CardContent, Grid, TextField, Typography } from '@mui/material';
+import {
+    Box,
+    Card,
+    CardContent,
+    FormControl,
+    Grid,
+    InputLabel,
+    MenuItem,
+    Select,
+    SelectChangeEvent,
+    TextField,
+    Typography,
+} from '@mui/material';
 import Checkbox from '@mui/material/Checkbox';
 import Image from 'next/image';
 import { useAppCtx } from '../../../../src/contexts/store';
@@ -31,6 +43,11 @@ const MealIngredientCard: FC<Props> = ({
     const [quantityValue, setQuantityValue] = useState<number>(0);
     const [ingredientName, setIngredientname] = useState<string>('');
     const [error, setError] = useState(false);
+    const [unit, setUnit] = useState('');
+
+    const handleChange = (event: SelectChangeEvent) => {
+        setUnit(event.target.value as string);
+    };
 
     const { setFieldValue } = formikProps;
     const currentAlimentos = formikProps.getFieldProps('alimento').value;
@@ -109,11 +126,11 @@ const MealIngredientCard: FC<Props> = ({
             <Grid
                 item
                 container
-                xs={6}
-                sm={6}
-                md={6}
-                lg={8}
-                xl={8}
+                xs={5}
+                sm={5}
+                md={5}
+                lg={7}
+                xl={7}
                 sx={ingredientsPanel.compoundCard.descriptionContainer}
             >
                 <Grid
@@ -144,21 +161,21 @@ const MealIngredientCard: FC<Props> = ({
 
             <Grid
                 container
-                xs={6}
-                sm={6}
-                md={4}
-                lg={4}
-                xl={4}
+                xs={7}
+                sm={7}
+                md={5}
+                lg={5}
+                xl={5}
                 spacing={2}
                 sx={ingredientsPanel.compoundCard.quantityContainer}
             >
                 <Grid
                     item
-                    xs={6}
-                    sm={6}
-                    md={6}
-                    lg={6}
-                    xl={6}
+                    xs={4}
+                    sm={4}
+                    md={4}
+                    lg={4}
+                    xl={4}
                     sx={{ mr: { xs: 1, sm: 1, md: 2, lg: 2, xl: 2 } }}
                 >
                     <TextField
@@ -175,18 +192,42 @@ const MealIngredientCard: FC<Props> = ({
                 </Grid>
                 <Grid
                     item
-                    xs={1}
-                    sm={1}
-                    md={2}
-                    lg={2}
-                    xl={2}
-                    sx={ingredientsPanel.compoundCard.secondaryText}
+                    xs={4}
+                    sm={4}
+                    md={4}
+                    lg={4}
+                    xl={4}
+                    sx={{ mr: { xs: 1, sm: 1, md: 2, lg: 2, xl: 2 } }}
                 >
-                    <Typography>Kg</Typography>
+                    <Box sx={{ minWidth: 120 }}>
+                        <FormControl fullWidth>
+                            <InputLabel id='unit-label'>Unidad</InputLabel>
+                            {meal.alimento.map((alimento) => (
+                                <Select
+                                    key={alimento.id}
+                                    labelId='unit-label'
+                                    id='unit'
+                                    value={unit}
+                                    label='Unidad'
+                                    onChange={handleChange}
+                                >
+                                    {alimento.unidades?.map((unidad) => (
+                                        <MenuItem
+                                            value={unidad.nombre}
+                                            key={unidad.id}
+                                        >
+                                            {unidad.nombre}
+                                        </MenuItem>
+                                    ))}
+                                </Select>
+                            ))}
+                        </FormControl>
+                    </Box>
                 </Grid>
                 <Grid
                     item
                     xs={1}
+                    sx={{ ml: { xs: 1, sm: 1, md: 2, lg: 2, xl: 2 } }}
                 >
                     <Checkbox
                         checked={alimentoCheck}
@@ -194,19 +235,6 @@ const MealIngredientCard: FC<Props> = ({
                         onClick={(e) => ingredientHandleChange(e)}
                     />
                 </Grid>
-                {/* <Grid item xs={4} sx={ingredientsPanel.compoundCard.primaryText}>
-                    <Typography>{ingredienteName}</Typography>
-                    {meal.alimento.map((alimento) => (
-                        <Typography key={alimento.id}>
-                            {alimento.unidades?.map((unidad) => (
-                                <Typography key={unidad.id}>
-                                    {unidad.id}{unidad.nombre}
-                                </Typography>
-                            ))}
-                        </Typography>
-                    ))}
-                </Grid> */}
-
             </Grid>
             {error && (
                 <Typography sx={ingredientsPanel.compoundCard.errorMsg}>
