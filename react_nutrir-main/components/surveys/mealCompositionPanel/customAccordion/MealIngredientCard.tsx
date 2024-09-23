@@ -43,10 +43,10 @@ const MealIngredientCard: FC<Props> = ({
     const [quantityValue, setQuantityValue] = useState<number>(0);
     const [ingredientName, setIngredientname] = useState<string>('');
     const [error, setError] = useState(false);
-    const [unit, setUnit] = useState('');
+    const [unit, setUnit] = useState<number>(1);
 
     const handleChange = (event: SelectChangeEvent) => {
-        setUnit(event.target.value as string);
+        setUnit(event.target.value as unknown as number);
     };
 
     const { setFieldValue } = formikProps;
@@ -110,7 +110,7 @@ const MealIngredientCard: FC<Props> = ({
                 id: ingredientId,
                 nombre: ingredientName,
                 quantity: parseFloat(e.target.value),
-                unit: 1, // Hardcoded value - Cambiar por la unidad seleccionada.
+                unit: unit,
             },
         ]);
     };
@@ -207,13 +207,13 @@ const MealIngredientCard: FC<Props> = ({
                                     key={alimento.id}
                                     labelId='unit-label'
                                     id='unit'
-                                    value={unit}
+                                    value={unit.toString()}
                                     label='Unidad'
                                     onChange={handleChange}
                                 >
                                     {alimento.unidades?.map((unidad) => (
                                         <MenuItem
-                                            value={unidad.nombre}
+                                            value={unidad.id}
                                             key={unidad.id}
                                         >
                                             {unidad.nombre}
