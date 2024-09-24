@@ -21,7 +21,7 @@ class AlimentoEncuestaSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = AlimentoEncuesta
-        fields = ['alimento', 'cantidad']
+        fields = ['alimento', 'cantidad', 'unidad']
 class ComidaEncuestaSerializer(serializers.Serializer):
 
 	comida = PrimaryKeyRelatedField(queryset=Comida.objects.all())

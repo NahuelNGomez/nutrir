@@ -11,7 +11,7 @@ from comedor.models import Comedor
 
 class AlimentoEncuestaInline(admin.TabularInline):
 	model = AlimentoEncuesta
-	fields = ['comida', 'alimento', 'cantidad']
+	fields = ['comida', 'alimento', 'cantidad', 'unidad']
 	# readonly_fields = ['comida', 'alimento', 'cantidad']
 
 	def __init__(self, *args, **kwargs):

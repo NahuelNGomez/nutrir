@@ -75,6 +75,7 @@ const GuestsStep: FC<Props> = ({
                     id="childs"
                     label="Infantes de 0 a 5 años"
                     type="number"
+                    inputProps={{ min: 0, max: 100 }}
                     fullWidth
                     placeholder="Infantes de 0 a 5 años"
                     InputLabelProps={{
@@ -94,6 +95,7 @@ const GuestsStep: FC<Props> = ({
                     id="kids"
                     label="Niñxs de 5 a 10 años"
                     type="number"
+                    inputProps={{ min: 0, max: 100 }}
                     placeholder="Niñxs de 5 a 10 años"
                     fullWidth
                     InputLabelProps={{
@@ -113,6 +115,7 @@ const GuestsStep: FC<Props> = ({
                     id="teens"
                     label="Adolescentes de 10 a 18 años"
                     type="number"
+                    inputProps={{ min: 0, max: 100 }}
                     placeholder="Adolescentes de 10 a 18 años"
                     fullWidth
                     InputLabelProps={{
@@ -132,6 +135,7 @@ const GuestsStep: FC<Props> = ({
                     id="adults"
                     label="Adultos más de 18 años"
                     type="number"
+                    inputProps={{ min: 0, max: 100 }}
                     placeholder="Adultos más de 18 años"
                     fullWidth
                     InputLabelProps={{

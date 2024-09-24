@@ -5,6 +5,7 @@ from django.conf import settings
 from comedor.models import Comedor
 from comida.models import Comida
 from alimento.models import Alimento
+from alimento.models import Unidad
 from organizacion.models import Organizacion
 
 FUNCIONAMIENTO_CHOICES = (
@@ -41,6 +42,7 @@ class AlimentoEncuesta(models.Model):
 	encuesta = models.ForeignKey(Encuesta, models.CASCADE)
 	comida = models.ForeignKey(Comida,  models.CASCADE)
 	cantidad = models.DecimalField(decimal_places=3, max_digits=5, validators=[MinValueValidator(0.001)])
+	unidad = models.ForeignKey(Unidad, models.CASCADE, default=None)
 
 	def __str__(self):
 		return f"{self.alimento.nombre}"
