@@ -22,22 +22,6 @@ class AlimentoAdminForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        # # Llenar campos si hay un objeto existente
-        # if self.instance and self.instance.pk:
-        #     try:
-        #         alimento_sara_instance = AlimentoSARA.objects.get(nombre=self.instance.nombre)
-        #         self.fields['alimento_sara'].initial = alimento_sara_instance
-        #         self.fields['nombre'].initial = alimento_sara_instance.nombre
-        #         self.fields['cantidad_porcion'].initial = alimento_sara_instance.cantidad_porcion
-        #         self.fields['hidratos_carbono'].initial = alimento_sara_instance.hidratos_carbono
-        #         self.fields['proteinas'].initial = alimento_sara_instance.proteinas
-        #         self.fields['grasas'].initial = alimento_sara_instance.grasas
-        #         self.fields['grasas_totales'].initial = alimento_sara_instance.grasas_totales
-        #         self.fields['energia'].initial = alimento_sara_instance.energia
-        #         self.fields['sodio'].initial = alimento_sara_instance.sodio
-        #     except AlimentoSARA.DoesNotExist:
-        #         pass
-
         # Inicialmente, todos los campos son NO requeridos
         for field in ['nombre', 'cantidad_porcion', 'hidratos_carbono', 'proteinas', 
                       'grasas', 'grasas_totales', 'energia', 'sodio']:
