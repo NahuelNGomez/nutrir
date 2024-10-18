@@ -1,10 +1,11 @@
 from email.policy import default
 from typing_extensions import Required
 from django.db import models
-
-
+from enum import Enum
 
 class Alimento(models.Model):
+
+	
 
 	nombre = models.CharField("Nombre", max_length=100, unique=True)
 	foto = models.ImageField(upload_to='images')
@@ -22,3 +23,16 @@ class Alimento(models.Model):
 
 	class Meta:
 		verbose_name_plural = "Alimentos"
+
+class AlimentoSARA(models.Model):
+    nombre = models.CharField(max_length=100, unique=True)
+    cantidad_porcion = models.DecimalField(max_digits=10, decimal_places=2, default=1)
+    hidratos_carbono = models.DecimalField(max_digits=10, decimal_places=2, default=0)
+    proteinas = models.DecimalField(max_digits=10, decimal_places=2, default=0)
+    grasas = models.DecimalField(max_digits=10, decimal_places=2, default=0)
+    grasas_totales = models.DecimalField(max_digits=10, decimal_places=2, default=0)
+    energia = models.DecimalField(max_digits=10, decimal_places=2, default=0)
+    sodio = models.DecimalField(max_digits=10, decimal_places=2, default=0)
+
+    def __str__(self):
+        return self.nombre
