@@ -1,6 +1,6 @@
 # admin.py
 from django.contrib import admin
-from .models import Alimento
+from .models import Alimento, Unidad
 from .models import AlimentoSARA
 from django import forms
 from django.utils.html import format_html
@@ -61,6 +61,13 @@ class AlimentoAdmin(admin.ModelAdmin):
     list_display = ['nombre', 'foto_tag',]
     search_fields = ('nombre',)
     ordering = ['nombre']
+    
+    
+class UnidadAdmin(admin.ModelAdmin):
+    list_display = ['nombre']
+    search_fields = ['nombre']
 
 admin.site.register(Alimento, AlimentoAdmin)
+admin.site.register(Unidad, UnidadAdmin)
+
 

@@ -26,6 +26,9 @@ class Alimento(models.Model):
 
     def __str__(self):
         return f"{self.nombre}"
+    
+    class Meta:
+        verbose_name_plural = "Alimentos"
 
 class AlimentoSARA(models.Model):
     nombre = models.CharField(max_length=100, unique=True)
