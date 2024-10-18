@@ -64,4 +64,3 @@ class AlimentoAdmin(admin.ModelAdmin):
 
 admin.site.register(Alimento, AlimentoAdmin)
 
-

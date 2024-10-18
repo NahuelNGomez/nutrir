@@ -38,20 +38,8 @@ class EncuestasAdeudadasDiaViewList(generics.ListAPIView):
 			#import pdb
 			#pdb.set_trace()
 			dia_semana = fecha_actual.weekday()
-			if dia_semana == 6:
-				dia_semana_txt = 'domingo'
-			elif dia_semana == 0:
-				dia_semana_txt = 'lunes'
-			elif dia_semana == 1:
-				dia_semana_txt = 'martes'
-			elif dia_semana == 2:
-				dia_semana_txt = 'miercoles'
-			elif dia_semana == 3:
-				dia_semana_txt = 'jueves'
-			elif dia_semana == 4:
-				dia_semana_txt = 'viernes'
-			elif dia_semana == 5:
-				dia_semana_txt = 'sabado'
+			dias = ['lunes', 'martes', 'miercoles', 'jueves', 'viernes', 'sabado', 'domingo']
+			dia_semana_txt = dias[dia_semana]
 
 			if FuncionamientoComedor.objects.filter(comedor=comedor,dia=dia_semana_txt).exists():
 				funcionamiento_comedor = FuncionamientoComedor.objects.filter(comedor=comedor,dia=dia_semana_txt)
@@ -100,20 +88,8 @@ class EncuestasAdeudadasViewList(generics.ListAPIView):
 				#Obtener que dia de la semana es
 				dia_semana = fecha_actual.weekday()
 
-				if dia_semana == 0:
-					dia_semana_txt = 'lunes'
-				elif dia_semana == 1:
-					dia_semana_txt = 'martes'
-				elif dia_semana == 2:
-					dia_semana_txt = 'miercoles'
-				elif dia_semana == 3:
-					dia_semana_txt = 'jueves'
-				elif dia_semana == 4:
-					dia_semana_txt = 'viernes'
-				elif dia_semana == 5:
-					dia_semana_txt = 'sabado'
-				elif dia_semana == 6:
-					dia_semana_txt = 'domingo'
+				dias = ['lunes', 'martes', 'miercoles', 'jueves', 'viernes', 'sabado', 'domingo']
+				dia_semana_txt = dias[dia_semana]
 
 
 				#print(fecha, fecha_actual)
@@ -202,7 +178,7 @@ class EncuestasViewList(generics.ListAPIView):
 					)
 				data = {
 					'alimento': comida1['alimento'],
-					'comida': comida1['comida'],
+					'comida': comida1['comida']
 				}
 				serializerComida1 = ComidaEncuestaSerializer(data=data)
 				serializerComida1.is_valid(raise_exception=True)
@@ -239,7 +215,8 @@ class EncuestasViewList(generics.ListAPIView):
 						'alimento': a['alimento'],
 						'encuesta': serializerEncuesta.data['id'],
 						'comida': comida1['comida'],
-						'cantidad': a['cantidad']
+						'cantidad': a['cantidad'],
+						'unidad': a['unidad']
 					}
 					alimento = AlimentoEncuestaCompletoSerializer(data=data)
 					alimento.is_valid(raise_exception=True)
@@ -251,7 +228,8 @@ class EncuestasViewList(generics.ListAPIView):
 						'alimento': a['alimento'],
 						'encuesta': serializerEncuesta.data['id'],
 						'comida': comida2['comida'],
-						'cantidad': a['cantidad']
+						'cantidad': a['cantidad'],
+						'unidad': a['unidad']
 					}
 					alimento = AlimentoEncuestaCompletoSerializer(data=data)
 					alimento.is_valid(raise_exception=True)
@@ -263,7 +241,8 @@ class EncuestasViewList(generics.ListAPIView):
 						'alimento': a['alimento'],
 						'encuesta': serializerEncuesta.data['id'],
 						'comida': comida3['comida'],
-						'cantidad': a['cantidad']
+						'cantidad': a['cantidad'],
+						'unidad': a['unidad']
 					}
 					alimento = AlimentoEncuestaCompletoSerializer(data=data)
 					alimento.is_valid(raise_exception=True)

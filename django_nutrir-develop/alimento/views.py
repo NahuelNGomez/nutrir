@@ -3,10 +3,11 @@ from django.shortcuts import render
 # Create your views here.
 from rest_framework import generics, status
 from rest_framework.response import Response
+
 from .models import AlimentoSARA
 from rest_framework.decorators import api_view
-from .serializers import AlimentoSerializer
-from .models import Alimento
+from .serializers import AlimentoSerializer, UnidadSerializer
+from .models import Alimento, Unidad
 
 
 class AlimentoViewList(generics.ListAPIView):
@@ -15,7 +16,6 @@ class AlimentoViewList(generics.ListAPIView):
     serializer_class = AlimentoSerializer
     def get_queryset(self):
         return Alimento.objects.all()
-
 @api_view(['GET'])
 def get_alimento_sara(request, alimento_id):
     print(alimento_id)
@@ -34,3 +34,10 @@ def get_alimento_sara(request, alimento_id):
         return Response(data, status=status.HTTP_200_OK)
     except AlimentoSARA.DoesNotExist:
         return Response({'error': 'Alimento no encontrado'}, status=status.HTTP_404_NOT_FOUND)
+
+class UnidadesViewList(generics.ListAPIView):
+    """Vista para que muestre el listado"""
+
+    serializer_class = UnidadSerializer
+    def get_queryset(self):
+        return Unidad.objects.all()

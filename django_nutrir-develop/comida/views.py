@@ -6,6 +6,7 @@ from rest_framework.response import Response
 from .serializers import ComidaSerializer
 from .models import Comida
 from alimento.models import Alimento
+from alimento.models import Unidad
 
 
 class ComidaViewList(generics.ListAPIView):
@@ -17,31 +18,45 @@ class ComidaViewList(generics.ListAPIView):
 
 class ComidaAlimentoView(generics.ListAPIView):
 
-	serializer_class = ComidaSerializer
+    serializer_class = ComidaSerializer
 
-	def list(self, request, *args, **kwargs):
-		id = self.kwargs['id_c']
-		comida = Comida.objects.get(id=id)
-		host = request.get_host()
+    def list(self, request, *args, **kwargs):
+        id = self.kwargs['id_c']
+        comida = Comida.objects.get(id=id)
+        host = request.get_host()
 
-		alimentos = Alimento.objects.filter(id__in=comida.alimento.all()).values('id', 'nombre', 'cantidad_porcion', 'hidratos_carbono', 'proteinas', 'grasas', 'energia')
-		alimentos = alimentos.annotate(foto=Concat(Value('http://'+host+'/media/'), 'foto',  output_field=CharField()))
+        alimentos = Alimento.objects.filter(id__in=comida.alimento.all()).values(
+            'id', 'nombre', 'foto', 'cantidad_porcion', 'hidratos_carbono', 'proteinas', 'grasas', 'energia'
+        )
 
-		comida_extendida = {
-			'id': id,
-			'nombre': comida.nombre,
-			'foto': 'http://'+host+'/media/'+str(comida.foto),
-			'alimento': alimentos,
-			'horario': comida.horario,
-			#'cantidad_porcion': comida.cantidad_porcion,
-			#'hidratos_carbono': comida.hidratos_carbono,
-			#'proteinas': comida.proteinas,
-			#'grasas': comida.grasas,
-			#'energia': comida.energia,
-		}
+        alimentos_extendidos = []
+        for alimento in alimentos:
+            unidades = Unidad.objects.filter(alimento=alimento['id']).values('id','nombre')
+            unidades_extendidas = [{'id': unidad['id'], 'nombre': unidad['nombre']} for unidad in unidades]
 
-		return Response({'data': comida_extendida})
+            alimento_extendido = {
+                'id': alimento['id'],
+                'nombre': alimento['nombre'],
+                'cantidad_porcion': alimento['cantidad_porcion'],
+                'hidratos_carbono': alimento['hidratos_carbono'],
+                'proteinas': alimento['proteinas'],
+                'grasas': alimento['grasas'],
+                'energia': alimento['energia'],
+                'unidades': unidades_extendidas,
+                'foto': 'http://'+host+'/media/' + alimento['foto'],
+            }
 
+            alimentos_extendidos.append(alimento_extendido)
+
+        comida_extendida = {
+            'id': id,
+            'nombre': comida.nombre,
+            'foto': 'http://'+host+'/media/'+str(comida.foto),
+            'alimento': alimentos_extendidos,
+            'horario': comida.horario,
+        }
+
+        return Response({'data': comida_extendida})
 
 class ComidaServicioView(generics.ListAPIView):
 

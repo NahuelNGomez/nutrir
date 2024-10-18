@@ -134,12 +134,17 @@ export type guestsStepsType = {
 }
 
 // Step 2: drink
+export type Unidades = {
+  id: number;
+  nombre: string;
+}
 
 export type mealDataType = {
   id: number;
   nombre: string;
   foto: string;
   horario?: string;
+  unidades?: Array<Unidades>;
   cantidad_porcion?: string | number;
   hidratos_carbono?: string | number;
   proteinas?: string | number;
@@ -152,6 +157,7 @@ export type foodDataType = {
   id: number;
   nombre: string;
   foto: string;
+  unidades?: Array<Unidades>;
   cantidad_porcion?: string | number;
   hidratos_carbono?: string | number;
   proteinas?: string | number;
@@ -163,6 +169,7 @@ export type foodStepType = {
   id: number;
   nombre: string;
   quantity: number;
+  unit: string;
 }
 
 export type mealStepType = {
