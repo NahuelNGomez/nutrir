@@ -17,13 +17,15 @@ class AlimentoAdminForm(forms.ModelForm):
 
     class Meta:
         model = Alimento
-        fields = ['alimento_sara', 'foto', 'nombre', 'cantidad_porcion', 'hidratos_carbono', 
-                  'proteinas', 'grasas', 'grasas_totales', 'energia', 'sodio']
+        fields = ['alimento_sara', 'foto', 'nombre', 'cantidad_porcion', 'unidades',  # Aquí añade 'unidades'
+                  'hidratos_carbono', 'proteinas', 'grasas', 'grasas_totales', 'energia', 'sodio']
     class Media:
         js = ('admin/js/fill_alimento_fields.js',)  # Archivo JavaScript que cargará
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
+        if self.instance and self.instance.pk:
+            self.fields['unidades'].initial = self.instance.unidades.all()
         # Inicialmente, todos los campos son NO requeridos
         for field in ['nombre', 'cantidad_porcion', 'hidratos_carbono', 'proteinas', 
                       'grasas', 'grasas_totales', 'energia', 'sodio']:

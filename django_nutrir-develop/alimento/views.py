@@ -18,7 +18,6 @@ class AlimentoViewList(generics.ListAPIView):
         return Alimento.objects.all()
 @api_view(['GET'])
 def get_alimento_sara(request, alimento_id):
-    print(alimento_id)
     try:
         alimento_sara = AlimentoSARA.objects.get(id=alimento_id)
         data = {
