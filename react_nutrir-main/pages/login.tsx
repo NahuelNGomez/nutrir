@@ -60,10 +60,10 @@ const Login: NextPage = () => {
                             <img
                                 src={
                                     modeTheme == 'dark'
-                                        ? '/images/ui/NUTRIR logo-transparente-01.png'
-                                        : '/images/ui/NUTRIR logo-03.png'
+                                        ? '/images/ui/nutrir-logo-app.png'
+                                        : '/images/ui/NUTRIR logo-02.png'
                                 }
-                                style={{ width: '200px' }}
+                                style={{ width: '250px' }}
                             />
 
                             <div style={loginStyles.utils.container}>
