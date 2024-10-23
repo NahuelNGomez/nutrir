@@ -1,6 +1,6 @@
 # admin.py
 from django.contrib import admin
-from .models import Alimento
+from .models import Alimento, Unidad
 from .models import AlimentoSARA
 from django import forms
 from django.utils.html import format_html
@@ -17,13 +17,15 @@ class AlimentoAdminForm(forms.ModelForm):
 
     class Meta:
         model = Alimento
-        fields = ['alimento_sara', 'foto', 'nombre', 'cantidad_porcion', 'hidratos_carbono', 
-                  'proteinas', 'grasas', 'grasas_totales', 'energia', 'sodio']
+        fields = ['alimento_sara', 'foto', 'nombre', 'cantidad_porcion', 'unidades',  # Aquí añade 'unidades'
+                  'hidratos_carbono', 'proteinas', 'grasas', 'grasas_totales', 'energia', 'sodio']
     class Media:
         js = ('admin/js/fill_alimento_fields.js',)  # Archivo JavaScript que cargará
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
+        if self.instance and self.instance.pk:
+            self.fields['unidades'].initial = self.instance.unidades.all()
         # Inicialmente, todos los campos son NO requeridos
         for field in ['nombre', 'cantidad_porcion', 'hidratos_carbono', 'proteinas', 
                       'grasas', 'grasas_totales', 'energia', 'sodio']:
@@ -61,7 +63,13 @@ class AlimentoAdmin(admin.ModelAdmin):
     list_display = ['nombre', 'foto_tag',]
     search_fields = ('nombre',)
     ordering = ['nombre']
+    
+    
+class UnidadAdmin(admin.ModelAdmin):
+    list_display = ['nombre']
+    search_fields = ['nombre']
 
 admin.site.register(Alimento, AlimentoAdmin)
+admin.site.register(Unidad, UnidadAdmin)
 
 
