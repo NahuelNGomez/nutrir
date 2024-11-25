@@ -31,7 +31,6 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('provincia/', include('provincia.urls')),
     path('departamento/', include('departamento.urls')),
-    path('gobierno_local/', include('gobierno_local.urls')),
     path('localidad/', include('localidad.urls')),
     path('actividad_complementaria_comedor/', include('actividad_complementaria_comedor.urls')),
     path('asistentes_diarios_comedor/', include('asistentes_diarios_comedor.urls')),

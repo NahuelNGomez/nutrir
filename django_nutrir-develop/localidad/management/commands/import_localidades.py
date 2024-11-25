@@ -2,7 +2,6 @@ import csv
 from django.core.management import BaseCommand
 from provincia.models import Provincia
 from departamento.models import Departamento
-from gobierno_local.models import GobiernoLocal
 from localidad.models import Localidad
 
 
@@ -19,12 +18,9 @@ class Command(BaseCommand):
             for row in reader:
                 provinciaID= Provincia.objects.get(nombre=row[7])
                 departamentoID= Departamento.objects.get(nombre= row[6], provincia= provinciaID)
-                gobiernoLocalID= GobiernoLocal.objects.get(nombre= row[5], departamento= departamentoID)
                 Localidad.objects.create(
                     nombre = row[0],
                     codigo_UTA = row[1],
-                    gobierno_local= gobiernoLocalID,
                     departamento = departamentoID,
                     provincia = provinciaID,
-
                 )

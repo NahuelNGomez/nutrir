@@ -7,7 +7,6 @@ from servicio_comedor.models import ServicioComedor
 from organizacion.models import Organizacion
 from provincia.models import Provincia
 from departamento.models import Departamento
-from gobierno_local.models import GobiernoLocal
 from localidad.models import Localidad
 from actividad_complementaria_comedor.models import ActividadComplementariaComedor
 from cantidad_trabajadores_comedor.models import CantidadTrabajadoresComedor
@@ -43,7 +42,6 @@ class Comedor(models.Model):
     #SOLAPA UBICACION
     provincia = models.ForeignKey(Provincia, models.CASCADE)
     departamento = models.ForeignKey(Departamento, models.CASCADE, null=True, blank=True)
-    gobierno_local = models.ForeignKey(GobiernoLocal, models.CASCADE, null=True, blank=True)
     localidad = models.ForeignKey(Localidad, models.CASCADE, null=True, blank=True)
     barrio = models.CharField("Barrio", max_length=100, null=True, blank=True)
     calle = models.CharField("Calle", max_length=100, null=True, blank=True)

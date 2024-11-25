@@ -16,7 +16,6 @@ from .models import Comedor, FuncionamientoComedor  # , OtrasActividadesComedor
 from dal import autocomplete
 from provincia.models import Provincia
 from departamento.models import Departamento
-from gobierno_local.models import GobiernoLocal
 from localidad.models import Localidad
 
 import django_filters
@@ -52,32 +51,16 @@ class DepartamentoAutoComplete(autocomplete.Select2QuerySetView):
 		return qs
 
 
-class GobiernoLocalAutoComplete(autocomplete.Select2QuerySetView):
-	def get_queryset(self):
-		# Don't forget to filter out results depending on the visitor !
-		if not self.request.user.is_authenticated:
-			return GobiernoLocal.objects.none()
-
-		departamento = self.forwarded.get('departamento', None)
-		if departamento is not None:
-			qs = GobiernoLocal.objects.filter(departamento=departamento).order_by('nombre')
-			if self.q:  # para que en el listado se pueda buscar por nombre de la provincia
-				qs = qs.filter(nombre__istartswith=self.q)
-		else:
-			qs = GobiernoLocal.objects.none()
-		return qs
-
-
 class LocalidadAutoComplete(autocomplete.Select2QuerySetView):
 	def get_queryset(self):
 		# Don't forget to filter out results depending on the visitor !
 		if not self.request.user.is_authenticated:
 			return Localidad.objects.none()
 
-		gobiernoLocal = self.forwarded.get('gobierno_local', None)
-		if gobiernoLocal is not None:
+		departamento = self.forwarded.get('departamento', None)
+		if departamento is not None:
 			# TODO: Unificar filtrado de is_active
-			qs = Localidad.objects.filter(gobierno_local=gobiernoLocal).order_by('nombre')
+			qs = Localidad.objects.filter(departamento=departamento).order_by('nombre')
 			if self.q:  # para que en el listado se pueda buscar por nombre de la provincia
 				qs = qs.filter(nombre__istartswith=self.q)
 		else:
@@ -120,7 +103,6 @@ class ComedorViewList(generics.ListAPIView, generics.UpdateAPIView):
 			'organizacion_regional': comedor.organizacion_regional,
 			'provincia': comedor.provincia,
 			'departamento': comedor.departamento,
-			'gobierno_local': comedor.gobierno_local,
 			'localidad': comedor.localidad,
 			'barrio': comedor.barrio,
 			'calle': request.data['calle'],

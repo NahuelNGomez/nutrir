@@ -6,7 +6,7 @@ class ComedorSerializer(serializers.ModelSerializer):
 
 	class Meta:
 		model = Comedor
-		read_only_fields = ['id', 'servicio_comedor', 'activo', 'organizacion_regional', 'provincia', 'departamento', 'gobierno_local', 'localidad', 'barrio', 'latitud', 'longitud', 'ubicacion_georreferencial', 'fecha_inicio_actividad', 'descripcion', 'actividades', 'cantidad_trabajadores', 'asistentes_diarios', 'tipos_energia', 'fuente_agua', 'fuente_agua_potable', 'responsable_comedor']
+		read_only_fields = ['id', 'servicio_comedor', 'activo', 'organizacion_regional', 'provincia', 'departamento', 'localidad', 'barrio', 'latitud', 'longitud', 'ubicacion_georreferencial', 'fecha_inicio_actividad', 'descripcion', 'actividades', 'cantidad_trabajadores', 'asistentes_diarios', 'tipos_energia', 'fuente_agua', 'fuente_agua_potable', 'responsable_comedor']
 		fields = '__all__' #si quiero todos los campos
 
 class FuncionamientoComedorSerializer(serializers.ModelSerializer):

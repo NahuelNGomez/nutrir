@@ -22,7 +22,7 @@ class ComedorAdmin(admin.ModelAdmin):
 		  'fields': ('nombre', 'servicio_comedor', 'activo', 'organizacion_regional')
 	  }),
 	  ('Ubicación', {
-		  'fields': ('provincia', 'departamento', 'gobierno_local', 'localidad', 'barrio', 'calle', 'numero', 'entre_calles', 'ubicacion_georreferencial', 'latitud', 'longitud')
+		  'fields': ('provincia', 'departamento', 'localidad', 'barrio', 'calle', 'numero', 'entre_calles', 'ubicacion_georreferencial', 'latitud', 'longitud')
 	  }),
 	  ('Actividades', {
 		  'fields': ('fecha_inicio_actividad', 'descripcion', 'actividades', )

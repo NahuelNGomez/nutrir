@@ -2,7 +2,6 @@ from django import forms
 from dal import autocomplete
 from provincia.models import Provincia
 from departamento.models import Departamento
-from gobierno_local.models import GobiernoLocal
 from localidad.models import Localidad
 from .models import Comedor, AsistentesDiariosComedor, CantidadTrabajadoresComedor
 from utils.functions import Position, IntegerField
@@ -35,15 +34,9 @@ class ComedorAdminForm(forms.ModelForm):
 		blank=True,
 		required=False
 	)
-	gobierno_local = forms.ModelChoiceField(
-		queryset=GobiernoLocal.objects.all(),
-		widget=autocomplete.ModelSelect2(url='gobiernoLocal-autocomplete', forward=('departamento',)),
-		blank=True,
-		required=False
-	)
 	localidad = forms.ModelChoiceField(
 		queryset=Localidad.objects.all(),
-		widget=autocomplete.ModelSelect2(url='localidad-autocomplete', forward=('gobierno_local',)),
+		widget=autocomplete.ModelSelect2(url='localidad-autocomplete', forward=('departamento',)),
 		blank=True,
 		required=False
 	)
